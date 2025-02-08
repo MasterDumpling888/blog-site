@@ -1,0 +1,66 @@
+<!-- Registration page -->
+<!DOCTYPE html>
+<html data-theme="cupcake" lang="en">
+  <%- include("./partials/header.ejs") %>
+
+  <body>
+    <%- include("./partials/nav.ejs") %>
+
+    <form action="/users/register" method="POST">
+      <div class="flex w-full flex-col items-center py-24 sm:py-32">
+        <div class="card rounded-box bg-neutral-100 p-12">
+          <h2
+            class="mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Register
+          </h2>
+
+          <!-- Input username -->
+          <label class="mt-6 input input-bordered flex items-center gap-2">
+            Name
+            <input
+              type="text"
+              class="grow"
+              name="username"
+              id="username"
+              placeholder="username"
+              required
+            />
+          </label>
+
+          <!-- Input email -->
+          <label class="mt-6 input input-bordered flex items-center gap-2">
+            Email
+            <input
+              type="text"
+              class="grow"
+              name="email"
+              placeholder="daisy@site.com"
+              required
+            />
+          </label>
+
+          <!-- Input password -->
+          <label class="mt-6 input input-bordered flex items-center gap-2">
+            Password
+            <input
+              type="password"
+              name="password"
+              id="password"
+              class="grow"
+              required
+            />
+          </label>
+
+          <!-- Submit button -->
+          <div class="mt-10 flex gap-4">
+            <button type="submit" class="btn btn-accent">Register</button>
+            <button class="btn btn-neutral">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <%- include("./partials/footer.ejs") %>
+  </body>
+</html>
