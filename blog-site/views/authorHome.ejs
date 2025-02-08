@@ -1,0 +1,64 @@
+<!-- Author home page:
+1. Display the author's name and the title of the blog.
+2. Display the published articles and drafts.
+3. If there are no published articles or drafts, display a message.
+-->
+<!DOCTYPE html>
+<html data-theme="cupcake" lang="en">
+<!-- data-theme="cupcake" is a custom attribute that we use to switch between themes -->
+<!-- Include the header partial component -->
+<%- include("./partials/header.ejs") %>
+
+<body>
+  <!-- Include the nav partial component -->
+  <%- include("./partials/nav.ejs") %>
+  <div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <!-- Get blog title that user has set -->
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <%= blogDetails.title %>
+        </h1>
+        <!-- Display author name -->
+        <p class="mt-2 text-lg leading-8 text-gray-600">
+          <%= blogDetails.authorUsername %>
+        </p>
+      </div>
+
+      <!-- Display published articles -->
+      <div class="mt-8">
+        <h3 class="font-semibold tracking-tight text-gray-900 sm:text-3xl">
+          Published Articles
+        </h3>
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          <% if(publishedPosts.length === 0) { %>
+          <!-- If there are no published articles, display a message -->
+          <p class="text-gray-600">No published articles</p>
+          <% } else { %> <%- include('./partials/blogList', { publishedPosts
+            }) %> <% } %>
+          <!-- Include the blogList partial component to display published articles -->
+        </div>
+      </div>
+
+      <!-- Display draft articles -->
+      <div class="mt-16">
+        <h3 class="font-semibold tracking-tight text-gray-900 sm:text-3xl">
+          Drafts
+        </h3>
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          <% if(draftPosts.length === 0) { %>
+          <!-- If there are no draft articles, display a message -->
+          <p class="text-gray-600">No draft articles</p>
+          <% } else { %> <%- include('./partials/draftList', { draftPosts })
+            %> <% } %>
+          <!-- Include the draftList partial component to display draft articles -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("./partials/footer.ejs") %>
+  <!-- Include the footer partial component -->
+</body>
+
+</html>

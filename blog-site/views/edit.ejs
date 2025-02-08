@@ -1,0 +1,60 @@
+<!-- Article edit page -->
+<!DOCTYPE html>
+<html data-theme="cupcake" lang="en">
+<%- include("./partials/header.ejs") %>
+
+<body>
+  <%- include("./partials/nav.ejs") %>
+  <form action="/blogs/edit/<%= post.post_id %>" method="POST">
+    <div class="flex w-full flex-col items-center py-24 sm:py-32">
+      <div class="card rounded-box bg-neutral-100 p-12 w-1/2">
+        <div class="flex justify-between">
+          <h2 class="mb-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Edit draft
+          </h2>
+          <div class="mt-5 text-xs leading-6 text-gray-600">
+            Created:
+            <time datetime="<%= post.post_creation_date %>" class="text-xs text-gray-500">
+              <%= new Date(post.post_creation_date).toLocaleDateString() %>
+            </time>
+            <% if (new Date(post.post_modified_date).toLocaleDateString() !==
+          '1/1/1970') { %>
+            <br />
+            Last modified:
+            <time datetime="<%= post.post_modified_date %>" class="text-xs text-gray-500">
+              <%= new Date(post.post_modified_date).toLocaleDateString() %>
+            </time>
+            <% } %>
+          </div>
+        </div>
+
+        <!-- Input article title -->
+        <label class="mt-6 input input-bordered flex items-center gap-2">
+          Title
+          <input type="text" class="grow" name="post_title" id="post_title" value="<%= post.post_title %>" required />
+        </label>
+
+        <!-- Input article content -->
+        <textarea class="mt-6 w-full h-40 textarea textarea-bordered" name="post_body" id="post_body">
+<%= post.post_body %></textarea>
+
+        <!-- Input article genre tag -->
+        <label class="mt-6 input input-bordered flex items-center gap-2">
+          Tag
+          <input type="text" class="grow" name="post_tag" id="post_tag" value="<%= post.post_tag %>" />
+        </label>
+
+        <!-- Submit button -->
+        <div class="mt-10 flex gap-4">
+          <button type="submit" class="btn btn-accent">Save Draft</button>
+          <button type="button" class="btn btn-neutral" onclick="window.history.back();">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

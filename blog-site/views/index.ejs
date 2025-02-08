@@ -1,0 +1,114 @@
+<!-- Set up blog site -->
+<!DOCTYPE html>
+<html data-theme="cupcake" lang="en">
+<%- include("./partials/header.ejs") %>
+
+<body>
+  <!-- Setup Modal on very first load to set up blog site title and author -->
+  <div class="modal modal-close bg-opacity-50" id="setupModal">
+    <div class="modal-box">
+      <p class="text-lg font-bold">Welcome to Your Blog Site</p>
+      <p class="text-sm">Please enter your name and blog site title</p>
+
+      <!-- Form to set up blog site -->
+      <form action="/setup" method="POST">
+        <!-- Input Site title -->
+        <label class="mt-6 input input-bordered flex items-center gap-2">
+          Site Title
+          <input type="text" class="grow" name="blog_title" id="blog_title" placeholder="Blog Site Title" required />
+        </label>
+
+        <!-- Create author username -->
+        <label class="mt-6 input input-bordered flex items-center gap-2">
+          Username
+          <input type="text" class="grow" name="username" id="username" placeholder="Author Username" required />
+        </label>
+
+        <!-- Create author email -->
+        <label class="mt-6 input input-bordered flex items-center gap-2">
+          Email
+          <input type="email" class="grow" name="email" id="email" placeholder="Author Email" required />
+        </label>
+
+        <!-- Create author password -->
+        <label class="mt-6 input input-bordered flex items-center gap-2">
+          Password
+          <input type="password" class="grow" name="password" id="password" placeholder="Password" required />
+        </label>
+
+        <!-- Submit button -->
+        <div class="mt-10 flex gap-4">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button class="btn btn-neutral">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <!-- Run once blog site is set up -->
+  <%- include("./partials/nav.ejs") %>
+
+  <div class="hero min-h-screen" style="
+        background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.jpg);
+      ">
+    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="hero-content text-neutral-content text-center">
+      <div class="max-w-md">
+        <h1 class="mb-5 text-5xl font-bold">Welcome</h1>
+        <p class="mb-5">
+          Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+          excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
+          a id nisi.
+        </p>
+
+        <!-- Author Home and Reader Home buttons -->
+        <div class="mt-8 flex justify-center gap-8">
+          <a href="/authorHome" class="btn btn-primary">Author Home</a>
+          <a href="/readerHome" class="btn btn-primary">Reader Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("./partials/footer.ejs") %>
+
+  <!-- Modal to display warning that user is not the Author -->
+  <div id="notAuthorModal" class="modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-box">
+      <h3 class="font-bold text-lg">Access Denied</h3>
+      <p class="py-4">You are not the author of this blog.</p>
+      <p class="py-4">
+        If you want to access the Author Home Page please logout and login
+        with your Author account.
+      </p>
+      <div class="modal-action">
+        <a href="#" class="btn" onclick="closeModal()">Close</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Show setup modal if site details are empty
+    window.onload = function() {
+      const isSiteDetailsEmpty = <%- JSON.stringify(isSiteDetailsEmpty) %>;
+      if (isSiteDetailsEmpty) {
+        document.getElementById('setupModal').classList.add('modal-open');
+      }
+    };
+
+    // Close notAuthor modal
+    function closeModal() {
+      document.getElementById('notAuthorModal').classList.remove('modal-open');
+    }
+
+    // Show notAuthor modal if user tries to access author home page
+    document.addEventListener("DOMContentLoaded", function() {
+      <% if (notAuthor) { %>
+      document.getElementById('notAuthorModal').classList.add('modal-open');
+      <% } %>
+    });
+  </script>
+</body>
+
+</html>
